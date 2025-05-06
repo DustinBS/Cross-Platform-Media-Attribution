@@ -27,6 +27,21 @@ To use this dataset for your project:
     ```
     The script will create a `data/` subdirectory and save 5 CSV files (`sim_id_mapping.csv`, `sim_linear_ad_log.csv`, `sim_streaming_ad_log_A.csv`, `sim_website_visits.csv`, `sim_purchases.csv`) within it.
 
+4. **Load into containerized PostgreSQL server (Optional, you will need Docker Desktop for this):**
+    ```Powershell
+    docker compose up -d
+    ```
+    This command will start the docker-compose.yml dictating a PostgreSQL database container, which loads the data from the `data/` folder using the `init.sql` script, and maps port 9999 on your computer to the database's default port (5432) inside the container.
+
+    You can then connect to the database using a SQL client (like `psql` or a VS Code database extension) with these details:
+    * **Host:** `localhost`
+    * **Port:** `9999`
+    * **Database:** `TVandAds` (or the name you set in `docker-compose.yml`)
+    * **User:** `user` (or the user you set in `docker-compose.yml`)
+    * **Password:** `password` (or the password you set in `docker-compose.yml`)
+
+    To stop the database container and remove the data, run `docker compose down -v` in the same directory.
+
 ## Statistical Distributions Used in Data Generation
 
 Here are the primary distributions used: **Bernoulli Distribution** in (ID mapping rates in `sim_id_mapping.csv`), **Uniform Distribution** in (timestamps across logs/visits, purchase values in `sim_purchases.csv`), **Categorical Distribution** in (creative names in `sim_linear_ad_log.csv`), **Discrete Uniform Distribution** in (selecting IDs for log/visit entries, channel/creative IDs, impression counts, entry URLs, purchase timestamp deltas), and **Sampling** in (introducing duplicates in `sim_streaming_ad_log_A.csv`, selecting purchases in `sim_purchases.csv`).
