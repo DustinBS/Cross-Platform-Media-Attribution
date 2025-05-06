@@ -25,7 +25,7 @@ To use this dataset for your project:
     ```Powershell
     python generate_synthetic_data.py
     ```
-    The script will create a `data/` subdirectory and save the five CSV files (`sim_id_mapping.csv`, `sim_linear_ad_log.csv`, `sim_streaming_ad_log_A.csv`, `sim_website_visits.csv`, `sim_purchases.csv`) within it.
+    The script will create a `data/` subdirectory and save 5 CSV files (`sim_id_mapping.csv`, `sim_linear_ad_log.csv`, `sim_streaming_ad_log_A.csv`, `sim_website_visits.csv`, `sim_purchases.csv`) within it.
 
 ## Statistical Distributions Used in Data Generation
 
@@ -33,7 +33,7 @@ Here are the primary distributions used: **Bernoulli Distribution** in (ID mappi
 
 ## File Contents (Columns)
 
-Here's a brief overview of the columns in each file:
+Here's a brief overview of the columns in each file. This structure is designed to simulate the fragmented nature of marketing data and the technical hurdles in unifying it for analysis:
 
 **`sim_id_mapping.csv`**
 * `simulated_household_id_linear`: ID used in linear data (can be null).
@@ -70,3 +70,28 @@ Here's a brief overview of the columns in each file:
 * `purchase_value`: Simulated monetary value of the purchase.
 * `simulated_visitor_cookie_id`: Cookie ID associated with the purchase.
 
+## Why Those Columns? (Justification)
+
+This dataset comprises five interconnected CSV files, each simulating data from different sources to present common real-world data integration and quality challenges:
+
+1.  `sim_id_mapping.csv` (Simulated Identity Mapping)
+    * **Purpose:** Links identifiers across different simulated systems (Linear TV, Streaming Device, Streaming User, Website Cookie).
+    * **Challenge:** Not all individuals have IDs in every system, simulating real-world identity resolution gaps. Nulls indicate missing links.
+
+2.  `sim_linear_ad_log.csv` (Simulated Linear TV Ad Log)
+    * **Purpose:** Records simulated ad airings on traditional linear TV.
+    * **Challenge:** Uses a household-level identifier (`simulated_household_id_linear`) distinct from digital IDs.
+    * **Note:** Includes intentionally **missing `creative_name` values** to simulate data quality issues.
+
+3.  `sim_streaming_ad_log_A.csv` (Simulated Streaming App A Ad Log)
+    * **Purpose:** Records simulated ad impressions on a streaming platform.
+    * **Challenge:** Uses digital identifiers (`simulated_device_id_A`, `simulated_user_id_A`).
+    * **Note:** Includes intentional **duplicate rows** to simulate common logging errors requiring de-duplication.
+
+4.  `sim_website_visits.csv` (Simulated Website Visit Log)
+    * **Purpose:** Tracks simulated user activity on an advertiser's website.
+    * **Challenge:** Uses a cookie-based identifier (`simulated_visitor_cookie_id`), requiring mapping to link with ad exposure data.
+
+5.  `sim_purchases.csv` (Simulated Purchase Log)
+    * **Purpose:** Records simulated conversion events (purchases) occurring on the website.
+    * **Challenge:** Linked to website visits and ad exposures via the `simulated_visitor_cookie_id` and temporal proximity, forming the key outcome data for attribution.
