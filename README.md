@@ -1,12 +1,23 @@
 # Synthetic Cross-Platform Media Measurement Dataset
 
-This repository contains a synthetic dataset designed to simulate the common data challenges encountered in cross-platform media measurement and advertising attribution. The simulated challenges are primarily **identity resolution & mapping**, **cross-platform data integration**, **data quality issues**, and **timestamp reconciliation**.
+This repository contains a synthetic dataset designed to simulate the common data challenges encountered in cross-platform media measurement and advertising attribution. The simulated challenges are primarily **identity resolution & mapping**, **cross-platform media attribution**, and **data quality issues**.
 
 ## Motivation
 
-In advertising technology and media measurement, data can comes from numerous disparate sources, including linear TV logs, various streaming platforms, website analytics, CRM systems, etc. Linking data points across these sources to understand a user's journey and attribute conversions is a significant challenge. In this dataset, there are inconsistent identifiers, varying data granularities, data quality issues, and complex identity resolution processes.
+In advertising technology and media measurement, data can comes from numerous disparate sources, including linear TV logs, various streaming platforms, website analytics, CRM systems, etc. Linking data points across these sources to understand a user's journey and attribute conversions is a significant challenge. In this dataset, there are inconsistent identifiers, varying data granularities, and data quality issues spread throughout 4 tables: TV, Over-the-top (OTT), Websites, and Purchases. There is also a ground truth identity map with partial coverage of all ids.
 
-This synthetic dataset is not intended to be a statistically accurate reflection of real-world data volumes or distributions but serves as a playground to approach these challenges in a manageable format.
+
+## Statistical Distributions Used in Data Generation
+
+This synthetic dataset is not intended to be a statistically accurate reflection of real-world data volumes or distributions but serves to present specific challenges in a manageable format. Here are the primary distributions used: **Bernoulli Distribution** in (ID mapping rates in `sim_id_mapping.csv`), **Uniform Distribution** in (timestamps across logs/visits, purchase values in `sim_purchases.csv`), **Categorical Distribution** in (creative names in `sim_linear_ad_log.csv`), **Discrete Uniform Distribution** in (selecting IDs for log/visit entries, channel/creative IDs, impression counts, entry URLs, purchase timestamp deltas), and sampling with replacement to introduce duplicate logs in `sim_streaming_ad_log_A.csv`.
+
+.csv column details at the end.
+
+## Problems and Insights
+
+Here are some example problems I attempted.
+1. **Problem**: appropriate problems
+
 
 ## How to Use This Repository
 
@@ -41,10 +52,6 @@ To use this dataset for your project:
     * **Password:** `password` (or the password you set in `docker-compose.yml`)
 
     To stop the database container and remove the data, run `docker compose down -v` in the same directory.
-
-## Statistical Distributions Used in Data Generation
-
-Here are the primary distributions used: **Bernoulli Distribution** in (ID mapping rates in `sim_id_mapping.csv`), **Uniform Distribution** in (timestamps across logs/visits, purchase values in `sim_purchases.csv`), **Categorical Distribution** in (creative names in `sim_linear_ad_log.csv`), **Discrete Uniform Distribution** in (selecting IDs for log/visit entries, channel/creative IDs, impression counts, entry URLs, purchase timestamp deltas), and **Sampling** in (introducing duplicates in `sim_streaming_ad_log_A.csv`, selecting purchases in `sim_purchases.csv`).
 
 ## File Contents (Columns)
 
