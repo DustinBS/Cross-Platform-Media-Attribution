@@ -1,4 +1,4 @@
-# Synthetic Cross-Platform Media Measurement Dataset
+# Synthetic Cross-Platform (TV & Streaming) Media Attribution Dataset & Analysis
 
 This repository contains a synthetic dataset designed to simulate the common data challenges encountered in cross-platform media measurement and advertising attribution. The simulated challenges are primarily **identity resolution & mapping**, **cross-platform data integration**, **data quality issues**, and **timestamp reconciliation**.
 
