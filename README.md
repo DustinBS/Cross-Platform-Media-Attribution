@@ -2,10 +2,17 @@
 
 This repository contains a synthetic dataset designed to simulate the common data challenges encountered in cross-platform media measurement and advertising attribution. The simulated challenges are primarily **identity resolution & mapping**, **cross-platform media attribution**, and **data quality issues**.
 
+## Problems and Analysis
+
+To see motivation and how to use this repository, scroll past this section.
+
+Here are some example problems I attempted.
+1. **Problem**: appropriate problems
+2. **Problem**: appropriate problems
+
 ## Motivation
 
 In advertising technology and media measurement, data can comes from numerous disparate sources, including linear TV logs, various streaming platforms, website analytics, CRM systems, etc. Linking data points across these sources to understand a user's journey and attribute conversions is a significant challenge. In this dataset, there are inconsistent identifiers, varying data granularities, and data quality issues spread throughout 4 tables: TV, Over-the-top (OTT), Websites, and Purchases. There is also a ground truth identity map with partial coverage of all ids.
-
 
 ## Statistical Distributions Used in Data Generation
 
@@ -13,20 +20,14 @@ This synthetic dataset is not intended to be a statistically accurate reflection
 
 .csv column details at the end.
 
-## Problems and Insights
-
-Here are some example problems I attempted.
-1. **Problem**: appropriate problems
-
-
 ## How to Use This Repository
 
 To use this dataset for your project:
 
 1.  **Clone the repository:**
     ```Powershell
-    git clone https://github.com/DustinBS/TV-and-Streaming-Advertisement-Conversion-Patterns
-    cd path/to/TV-and-Streaming-Advertisement-Conversion-Patterns
+    git clone https://github.com/DustinBS/Cross-Platform-Media-Attribution
+    cd path/to/Cross-Platform-Media-Attribution
     ```
 2.  **Install required Python dependencies:**
     ```Powershell
