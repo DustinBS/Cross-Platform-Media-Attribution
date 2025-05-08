@@ -4,7 +4,7 @@ This repository contains a synthetic dataset designed to simulate the common dat
 
 ## Problems and Analysis
 
-To see motivation and how to use this repository, scroll past this section.
+For [motivation](#motivation) and [how to use this repository](#how-to-use-this-repository), scroll past this section or click the links.
 
 Here are some example problems I attempted.
 1. **Problem**: appropriate problems
