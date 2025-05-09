@@ -12,16 +12,16 @@ Here are some example problems I attempted.
 In `sql/ads_linked_to_purchases.sql`, I used SQL to assign credit to impressions for each platform with a time-decay model and limited the influence to 30 days before the purchase. The decay was 7-day half-life (1 ad right before purchase = 2 ads 7 days before purchase). This was then fit with a linear regression model with scikit-learn and statsmodels. i.e. the following model equation:
 
 ```math
-\text{purchase\_value} = \text{Intercept} + (\beta_1 \times \text{total\_decayed\_linear\_tv\_credit}) + (\beta_2 \times \text{total\_decayed\_streaming\_app\_a\_credit})
+\text{purchase\_value} = \text{Intercept} + (\beta_1 \times \text{decayed\_linear\_tv\_credit}) + (\beta_2 \times \text{decayed\_streaming\_credit})
 ```
 
 After fitting on a random 80% of the data, we get these coefficients:
 
 ```math
-\text{purchase\_value} \approx $215.63 + ($65.67 \times \text{total\_decayed\_linear\_tv\_credit}) + (-$0.15 \times \text{total\_decayed\_streaming\_app\_a\_credit})
+\text{purchase\_value} \approx $215.63 + ($65.67 \times \text{decayed\_linear\_tv\_credit}) + (-$0.15 \times \text{decayed\_streaming\_credit})
 ```
 
-meaning a purchasing customer seeing no ads at all (within 30 days) is predicted to spend $215.63, and seeing 1 ad on linear TV right before the purchase increases their spending by $65.67.
+meaning a purchasing customer seeing no ads at all (within 30 days) is predicted to spend $215.63, and seeing 1 ad on linear TV right before the purchase increases their spending by $65.67 wheras 1 ad on over-the-top mediums decreases spending by $0.15.
 
 [Plot here]
 
