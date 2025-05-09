@@ -9,17 +9,28 @@ For [motivation](#motivation) and [how to use this repository](#how-to-use-this-
 Here are some example problems I attempted.
 1. **How much impact does linear and streaming ad impressions have on the amount spent in a purchase?**:
 
-In `sql/ads_linked_to_purchases.sql`, I used SQL to assign credit to impressions for each platform with a time-decay model. I limited the influence to 30 days before the purchase and adjusted the decay such that an ad seen by a customer 7 days before a purchase is half as effective as an ad seen by a customer right before the purchase (7-day half life). This was then fit with a linear regression model with scikit-learn and statsmodels. i.e. the following model equation:
+In `sql/ads_linked_to_purchases.sql`, I used SQL to assign credit to impressions for each platform with a time-decay model and limited the influence to 30 days before the purchase. The decay was 7-day half-life (1 ad right before purchase = 2 ads 7 days before purchase). This was then fit with a linear regression model with scikit-learn and statsmodels. i.e. the following model equation:
 
-$\text{purchase\_value} = \text{Intercept} + (\beta_1 \times \text{total\_decayed\_linear\_tv\_credit}) + (\beta_2 \times \text{total\_decayed\_streaming\_app\_a\_credit})$
+```math
+\text{purchase\_value} = \text{Intercept} + (\beta_1 \times \text{total\_decayed\_linear\_tv\_credit}) + (\beta_2 \times \text{total\_decayed\_streaming\_app\_a\_credit})
+```
 
 After fitting on a random 80% of the data, we get these coefficients:
 
-$\text{purchase\_value} \approx 215.63 + (65.67 \times \text{total\_decayed\_linear\_tv\_credit}) + (-0.15 \times \text{total\_decayed\_streaming\_app\_a\_credit})$
+```math
+\text{purchase\_value} \approx $215.63 + ($65.67 \times \text{total\_decayed\_linear\_tv\_credit}) + (-$0.15 \times \text{total\_decayed\_streaming\_app\_a\_credit})
+```
 
-This means, for example, a customer who has purchased something and has seen no ads at all in the last 30 days is predicted to spend $215.63, and seeing 1 ad on linear TV right before the purchase is predicted to increase their spending by $65.67. Unfortunately, this model has an R-squared of -6%, so it is worse than if just predicted the mean of all purchase values. This suggests a different model is more appropriate, but it also makes sense in the context of this dataset because we generated it using the uniform distribution independent of the value of ad impressions.
+meaning a purchasing customer seeing no ads at all (within 30 days) is predicted to spend $215.63, and seeing 1 ad on linear TV right before the purchase increases their spending by $65.67.
+
+[Plot here]
+
+**Model Evaluation**
+This model has an R-squared of -6%, so it is worse than if just predicted the mean of all purchase values. A different model might be more appropriate, but it also makes sense in the context of this dataset because we generated it using the uniform distribution an=nd independent of ad impressions.
 
 If we did not know the ground truth, we can evaluate the model's assumptions to see where things might've went wrong. The assumptions of a linear regression model using OLS are homoscedasticity, independent and normally distributed errors, and no multicollinearity.
+[Plot here]
+The Q-Q Plot suggest that the residuals are normally distributed. The feature correlation matrix tells us that there is little to no multicollinearity to worry about. 
 
 2. **Problem**: appropriate problems
 
