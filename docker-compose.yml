@@ -1,9 +1,9 @@
 services:
   db:
     image: postgres:16 # Pinned to version 16
-
+    container_name: tv_streaming_container
     environment:
-      POSTGRES_DB: TVandAds
+      POSTGRES_DB: tv_streaming
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
 
