@@ -23,14 +23,19 @@ After fitting on a random 80% of the data, we get these coefficients:
 
 meaning a purchasing customer seeing no ads at all (within 30 days) is predicted to spend $215.63, and seeing 1 ad on linear TV right before the purchase increases their spending by $65.67 wheras 1 ad on over-the-top mediums decreases spending by $0.15.
 
-[Plot here]
+[Plot for predicted purchases vs actual purchases. The prediction are way off](plots/problem1plot1.png)
 
 **Model Evaluation**
-This model has an R-squared of -6%, so it is worse than if just predicted the mean of all purchase values. A different model might be more appropriate, but it also makes sense in the context of this dataset because we generated it using the uniform distribution an=nd independent of ad impressions.
+With an R-squared of -6%, the model is worse than if just predicted the mean of all purchase values. A different model might be more appropriate, but it also makes sense in the context of this dataset because we generated it using the uniform distribution  independent of ad impressions.
 
 If we did not know the ground truth, we can evaluate the model's assumptions to see where things might've went wrong. The assumptions of a linear regression model using OLS are homoscedasticity, independent and normally distributed errors, and no multicollinearity.
-[Plot here]
-The Q-Q Plot suggest that the residuals are normally distributed. The feature correlation matrix tells us that there is little to no multicollinearity to worry about. 
+
+[Plot to check homoscedasticity, independent and normally distributed errors, and no multicollinearity](plots/problem2plot2.png)
+
+- The top-left plot (Residuals vs Predicted Values) has a random-scatter shape and suggests that the model is homoscedastic since the errors are evenly distributed throughout the range of the predicted values.
+- The top-right plot (Q-Q Plot) suggests that the residuals are normally distributed since the points follow a straight line.
+- The bottom-left plot (Correlation Matrix) tells us that there is little to no multicollinearity to worry about since the correlations are close to 0.
+- The bottom-right plot (Residuals vs. Order) flips flop often between points, which suggests that there shouldn't be a lot of dependence. If they were dependent, we would see clusters of points in positive or negative signs.  
 
 2. **Problem**: appropriate problems
 
