@@ -16,7 +16,7 @@ CAMPAIGN_END_DATE = datetime(2024, 10, 31)
 LINEAR_AIRINGS_PER_DAY = 100 # Average number of linear ad airings per day
 STREAMING_IMPRESSIONS_PER_DAY = 500 # Average number of streaming impressions per day
 WEBSITE_VISITS_PER_DAY = 300 # Average number of website visits per day
-PURCHASE_RATE = 0.05 # Percentage of website visits that result in a purchase
+PURCHASE_RATE = 0.02 # Percentage of website visits that result in a purchase
 
 # Simulate different levels of identity mapping completeness
 LINEAR_MAPPING_RATE = 0.9 # % of individuals with a linear TV ID

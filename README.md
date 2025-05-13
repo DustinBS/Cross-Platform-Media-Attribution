@@ -40,7 +40,7 @@ If we did not know the ground truth, we can evaluate the model's assumptions to 
 
 2. **Ad Fatigue: Does the influence of an ad on purchases change on repeat impressions to the same user/household?**
 
-![Plot on overall ad fatigue, distribution of repeated impressions, and a representative ad experiencing ad fatigue](plots/problem2.png)
+![Plot on overall ad fatigue, distribution of repeated impressions, and a representative ad experiencing ad fatigue](plots/problem2plot1.png)
 
 Here we can look at various metrics of ad fatigue.
 - **What if a company is interested in general advice on maximizing their conversion rate with minimal impressions?**
@@ -54,6 +54,10 @@ In the **second plot**, We can look at how many repeats are happening and sugges
 We can provide the metrics specific to their request (**last plot**) to guide decisions on when to rotate or retire creatives.
 
 If you've seen the dataset generation script, then you know that the PURCHASE_RATE is constant and not dependent on ad_impressions at all. So you might also be wondering why conversion rate is not just a flat line. This is because the lookback window attributes all ads that an individual has seen to the upcoming purchase. Even though it makes sense because people do not just reset their memory after every purchase, it can be misleading. To a naive observer, it may suggest that keeping the campaign running for longer can capture larger and larger percent of the audience when in reality, the audience had a base % to convert (like in our case) and it is pointless to run a campaign at all. To identify this, you would have to assume a base rate of conversion and see if the campaign is converting more compared to that base rate. For example, if we set PURCHASE_RATE to 2% instead of 5%:
+
+![Plot on overall ad fatigue, distribution of repeated impressions, and a representative ad experiencing ad fatigue with a lower purchase rate](plots/problem2plot2.png)
+
+And let this be the null hypothesis, then we can say that the campaign is successful in converting some customers because these 2%-purchase-rate plots is much smaller than the 5% plots.
 
 ## Motivation
 
