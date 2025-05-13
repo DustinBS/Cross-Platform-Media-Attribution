@@ -1,13 +1,13 @@
-# Synthetic Cross-Platform (TV & Streaming) Media Attribution Dataset & Analysis
+# Cross-Platform (TV & Streaming) Media Attribution Dataset and Analysis (Synthetic)
 
 This repository contains a synthetic dataset designed to simulate the common data challenges encountered in cross-platform media measurement and advertising attribution. The simulated challenges are primarily **identity resolution & mapping**, **cross-platform media attribution**, and **data quality issues**.
 
 ## Problems and Analysis
 
-For [motivation](#motivation) and [how to use this repository](#how-to-use-this-repository), scroll past this section or click the links.
+Scroll past this section or click the links to see [motivation](#motivation) and [how to use this repository](#how-to-use-this-repository).
 
 Here are some example problems I attempted.
-1. **How much impact does linear and streaming ad impressions have on the amount spent in a purchase?**:
+1. **How much impact does linear and streaming ad impressions have on the amount spent in a purchase?**
 
 In `sql/ads_linked_to_purchases.sql`, I used SQL to assign credit to impressions for each platform with a time-decay model and limited the influence to 30 days before the purchase. The decay was 7-day half-life (1 ad right before purchase = 2 ads 7 days before purchase). This was then fit with a linear regression model with scikit-learn and statsmodels. i.e. the following model equation:
 
@@ -26,6 +26,7 @@ meaning a purchasing customer seeing no ads at all (within 30 days) is predicted
 <img src="plots/problem1plot1.png" alt="Plot for predicted purchases vs actual purchases. The prediction are way off" width="50%">
 
 **Model Evaluation**
+
 With an R-squared of -6%, the model is worse than if just predicted the mean of all purchase values. A different model might be more appropriate, but it also makes sense in the context of this dataset because we generated it using the uniform distribution  independent of ad impressions.
 
 If we did not know the ground truth, we can evaluate the model's assumptions to see where things might've went wrong. The assumptions of a linear regression model using OLS are homoscedasticity, independent and normally distributed errors, and no multicollinearity.
@@ -37,16 +38,22 @@ If we did not know the ground truth, we can evaluate the model's assumptions to 
 - The bottom-left plot (Correlation Matrix) tells us that there is little to no multicollinearity to worry about since the correlations are close to 0.
 - The bottom-right plot (Residuals vs. Order) flips flop often between points, which suggests that there shouldn't be a lot of dependence. If they were dependent, we would see clusters of points in positive or negative signs.
 
-2. **Ad Fatigue: How does the influence of a specific ad on purchases change over successive impressions after a user/household is first exposed to it?**:
+2. **Ad Fatigue: Does the influence of an ad on purchases change on repeat impressions to the same user/household?**
 
 ![Plot on overall ad fatigue, distribution of repeated impressions, and a representative ad experiencing ad fatigue](plots/problem2.png)
 
 Here we can look at various metrics of ad fatigue.
-- **What if a company is interested in general advice on maximizing their conversion rate with minimal impressions?** The overall conversion rate of ads in the **first plot** can tell us where the optimum is. This is aggregated from looking at purchases for a specific creative and seeing how many repeated ads that customer has seen for that creative. In this case, it increases at 5 and 6 repeats but the the sample size is much lower (n < 4) for those repeats. With a real-world dataset, we might expect there to be an optimum repeat count in the middle of the range, for example.
-- **What if a company cares less about purchases and more about reach and brand awareness for their current campaign?** In the **second plot**, We can look at how many repeats are happening and suggest appropriate frequency caps on individual id to save on costs.
-- Finally, if a **company is looking for more specific advice on their own ad creative**. Then we would provide the metrics specific to their request (**last plot**) to guide decision on when to rotate them or retire them.
+- **What if a company is interested in general advice on maximizing their conversion rate with minimal impressions?**
+  
+The overall conversion rate of ads in the **first plot** can tell us where the optimum is. This is aggregated from looking at purchases for a specific creative and seeing how many repeated ads that customer has seen for that creative. In this case, it increases at 5 and 6 repeats but the the sample size is much lower (n < 4) for those repeats. With a real-world dataset, we might expect there to be an optimum repeat count in the middle of the range, for example.
+- **What if a company cares less about purchases and more about reach and brand awareness for their current campaign?**
 
-In the context of this dataset, we know that it is random noise because the purchase rate is not dependent on impressions.
+In the **second plot**, We can look at how many repeats are happening and suggest appropriate frequency caps on individual id to save on costs.
+- Finally, for **companies looking for more specific advice on their own ad creative**.
+
+We can provide the metrics specific to their request (**last plot**) to guide decisions on when to rotate or retire creatives.
+
+If you've seen the dataset generation script, then you know that the PURCHASE_RATE is constant and not dependent on ad_impressions at all. So you might also be wondering why conversion rate is not just a flat line. This is because the lookback window attributes all ads that an individual has seen to the upcoming purchase. Even though it makes sense because people do not just reset their memory after every purchase, it can be misleading. To a naive observer, it may suggest that keeping the campaign running for longer can capture larger and larger percent of the audience when in reality, the audience had a base % to convert (like in our case) and it is pointless to run a campaign at all. To identify this, you would have to assume a base rate of conversion and see if the campaign is converting more compared to that base rate. For example, if we set PURCHASE_RATE to 2% instead of 5%:
 
 ## Motivation
 
