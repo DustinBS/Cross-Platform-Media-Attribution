@@ -35,9 +35,18 @@ If we did not know the ground truth, we can evaluate the model's assumptions to 
 - The top-left plot (Residuals vs Predicted Values) has a random-scatter shape and suggests that the model is homoscedastic since the errors are evenly distributed throughout the range of the predicted values.
 - The top-right plot (Q-Q Plot) suggests that the residuals are normally distributed since the points follow a straight line.
 - The bottom-left plot (Correlation Matrix) tells us that there is little to no multicollinearity to worry about since the correlations are close to 0.
-- The bottom-right plot (Residuals vs. Order) flips flop often between points, which suggests that there shouldn't be a lot of dependence. If they were dependent, we would see clusters of points in positive or negative signs.  
+- The bottom-right plot (Residuals vs. Order) flips flop often between points, which suggests that there shouldn't be a lot of dependence. If they were dependent, we would see clusters of points in positive or negative signs.
 
-2. **Problem**: appropriate problems
+2. **Ad Fatigue: How does the influence of a specific ad on purchases change over successive impressions after a user/household is first exposed to it?**:
+
+![Plot on overall ad fatigue, distribution of repeated impressions, and a representative ad experiencing ad fatigue](plots/problem2.png)
+
+Here we can look at various metrics of ad fatigue.
+- **What if a company is interested in general advice on maximizing their conversion rate with minimal impressions?** The overall conversion rate of ads in the **first plot** can tell us where the optimum is. This is aggregated from looking at purchases for a specific creative and seeing how many repeated ads that customer has seen for that creative. In this case, it increases at 5 and 6 repeats but the the sample size is much lower (n < 4) for those repeats. With a real-world dataset, we might expect there to be an optimum repeat count in the middle of the range, for example.
+- **What if a company cares less about purchases and more about reach and brand awareness for their current campaign?** In the **second plot**, We can look at how many repeats are happening and suggest appropriate frequency caps on individual id to save on costs.
+- Finally, if a **company is looking for more specific advice on their own ad creative**. Then we would provide the metrics specific to their request (**last plot**) to guide decision on when to rotate them or retire them.
+
+In the context of this dataset, we know that it is random noise because the purchase rate is not dependent on impressions.
 
 ## Motivation
 
