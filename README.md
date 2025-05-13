@@ -31,7 +31,7 @@ With an R-squared of -6%, the model is worse than if just predicted the mean of 
 
 If we did not know the ground truth, we can evaluate the model's assumptions to see where things might've went wrong. The assumptions of a linear regression model using OLS are homoscedasticity, independent and normally distributed errors, and no multicollinearity.
 
-![Plot to check homoscedasticity, independent and normally distributed errors, and no multicollinearity](plots/problem2plot2.png)
+![Plot to check homoscedasticity, independent and normally distributed errors, and no multicollinearity](plots/problem1plot2.png)
 
 - The top-left plot (Residuals vs Predicted Values) has a random-scatter shape and suggests that the model is homoscedastic since the errors are evenly distributed throughout the range of the predicted values.
 - The top-right plot (Q-Q Plot) suggests that the residuals are normally distributed since the points follow a straight line.
